@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Digital Harbor Foundation</title>
+  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.5.1/build/cssreset/cssreset-min.css">
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="waypoints.min.js"></script>
+  <script>
+  $(function() {
+    $("#fixed").on("click",".link", function(event) {
+      $(this).closest("#fixed").find(".link")
+          .removeClass("active")
+        .end().end()
+        .addClass("active");
+    });
+    $.each(["contact", "advisors", "trustees", "programs", "mission"],
+        function(i, v) {
+          $("#" + v).waypoint(function() {
+            $("#" + v + "Link").click();
+          }, {offset: 'bottom-in-view'});
+          $("#" + v).waypoint(function() {
+            $("#" + v + "Link").click();
+          }, {offset: 0});
+        });
+  });
+  </script>
+  <style>
+    @font-face {
+      font-family: "GeosansLight";
+      src: url("GeosansLight.ttf");
+    }
+    body {
+      font-family: "GeosansLight";
+      color: #3A3A3A;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    #splash {
+      position: fixed;
+      top:0;
+      left:0;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+    }
+    #splash img {
+      position:absolute;
+      left: 80%;
+      top: 0;
+      height: 100%;
+      display: inline-block;
+    }
+    #splash #logo {
+      position: relative;
+      display: inline-block;
+    }
+    #logo #leftBackground {
+      height: 100%;
+      width: 50%;
+      background-color: #000C36;
+      float:left;
+      position: absolute;
+      left:0;
+      top:0;
+    }
+    #logo #rightBackground {
+      width: 50%;
+      height: 100%;
+      background-color: #231F20;
+      float:left;
+      position: absolute;
+      left:50%;
+      top:0;
+    }
+    #logo #gradient {
+      float:left;
+      position: absolute;
+      left:10%;
+      top:10%;
+      height: 80%;
+    }
+    #logo img {
+      float:left;
+      position: absolute;
+      left:10%;
+      top:10%;
+      height: 80%;
+    }
+    #fixed {
+      position: fixed;
+      top:0;
+      left:0;
+      z-index: 1;
+      width: 100%;
+    }
+    #fixed nav {
+      position: fixed;
+      top: 50%;
+      display: inline-block;
+      margin-left: 2em;
+      transform: translateX(-50%) rotate(-90deg) translateY(50%);
+      -webkit-transform: translateX(-50%) rotate(-90deg) translateY(50%);
+      transform-origin:50% 50% 0;
+      -webkit-transform-origin:50% 50% 0;
+      font-family: "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", sans-serif;
+      font-size: 20pt;
+      white-space: nowrap;
+    }
+    #fixed nav ul {
+      list-style: none;
+      font-weight: 400;
+    }
+    #fixed nav ul li {
+      display: inline;
+      padding: .5em;
+    }
+    #fixed nav ul a {
+      color: #B5B5B5;
+      transition-property: color;
+      transition-duration: .5s;
+      -webkit-transition-property: color;
+      -webkit-transition-duration: .5s;
+    }
+    #fixed nav ul a:hover {
+      color: #666666;
+      transition-property: color;
+      transition-duration: .5s;
+      -webkit-transition-property: color;
+      -webkit-transition-duration: .5s;
+    }
+    #fixed nav ul a.active {
+      color: #3D718B;
+      transition-property: color;
+      transition-duration: .5s;
+      -webkit-transition-property: color;
+      -webkit-transition-duration: .5s;
+    }
+    #backgroundHarbor {
+      height: 100%;
+      width: 30%;
+      background-image: url("harborFull.jpg");
+      position:fixed;
+      top:4em;
+      left:0;
+      background-position: right bottom;
+      background-size: auto 100%;
+      background-repeat: no-repeat;
+    }
+    #border {
+      position: fixed;
+      width: 6em;
+      height:100%;
+      top:0;
+      left:0;
+      background-color: #F3F1F2;
+    }
+    #fixed header {
+      position:fixed;
+      width: 100%;
+      top:0;
+      left:0;
+      height: 4em;
+      background-color: #F3F1F2;
+    }
+    #fixed header .smallLogo {
+      height: 2em;
+      margin-left: 6em;
+      margin-top:1em;
+    }
+    #fixed header .motto {
+      display: inline;
+      font-size: 28pt;
+      position: fixed;
+      top: .375em;
+      left: 40%;
+      white-space: nowrap;
+    }
+    .motto .motto1 {
+      color: #FEBD25;
+    }
+    .motto .motto2 {
+      color: #0091D4;
+    }
+    .motto .motto3 {
+      color: #00C12A;
+    }
+    #fixed #donateButton {
+      position:fixed;
+      top:.5em;
+      right:.5em;
+      border:0;
+      padding:0;
+      background:none;
+      color: #00C129;
+      font-size: 12pt;
+      font-family: "Arial", sans-serif;
+      text-transform: uppercase;
+    }
+    .content {
+      padding-left: 40%;
+      padding-bottom: 100%;
+      height: 80%;
+      overflow-y: auto;
+      margin-right: 5em;
+      padding-top: 6em;
+      max-width: 45em;
+    }
+    .profiles {
+      list-style: none;
+    }
+    .profiles li {
+      float:left;
+      width: 15em;
+      height: 5em;
+      margin-bottom: 1em;
+    }
+    #trustees .profiles li {
+      display: block;
+      width: auto;
+      clear: both;
+      height: auto;
+    }
+    #trustees .profiles li p {
+      margin-left: 6.5em;
+    }
+    .profiles li img {
+      float: left;
+      height: 5em;
+      margin-right: .5em;
+    }
+    #trustees .profiles li img {
+      height: 7em;
+    }
+    .profiles li p {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .profiles h4 {
+      font-weight:400;
+      display: inline;
+    }
+    .profiles h4:after {
+      content:",";
+    }
+    .content h2 {
+      font-size: 36pt;
+      font-family: "GeosansLight";
+      margin-bottom: .75em;
+      clear:both;
+    }
+    .content h3 {
+      font-size: 18pt;
+      font-family: "GeosansLight";
+      margin-left: 1em;
+      margin-bottom: .75em;
+      color: #3C708A;
+    }
+    .content strong {
+      font-family: "GeosansLight";
+      font-size: 18pt;
+      font-weight: 400;
+      color: #3C708A;
+    }
+    .content p {
+      font-family: "GeosansLight";
+      font-size: 14pt;
+      font-weight: 400;
+      margin-bottom: 1em;
+    }
+    .content img {
+      float:left;
+      margin-right: 4em;
+      height: 6em;
+      margin-bottom: 1em;
+    }
+    .profile {
+      clear: both;
+      margin-top: 2em;
+    }
+    .content a:hover {
+      text-shadow: 0.1em 0.1em 0.2em #3C708A;
+    }
+    #splash {
+      display:none;
+    }
+    footer img {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      width: 6em;
+    }
+    /* below 800 height, reduce size of menu text*/
+    @media screen and (max-height:800px) {
+      #fixed nav {
+        font-size: 16pt;
+      }
+    }
+    /* below 945 width, don't display motto */
+    @media screen and (max-width:945px) {
+      .motto {
+        display: none !important;
+      }
+    }
+    /* below 800px width, lessen margin to right of contact images */
+    @media screen and (max-width:945px) {
+      .profile img {
+        margin-right: 1em;
+      }
+    }
+    /* below 600 width, lessen right side margins */
+    @media screen and (max-width:660px) {
+      .content {
+        margin-right: 1em;
+        padding-left: 35%;
+      }
+      #trustees .profiles li p {
+        margin-left: 4.5em;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+  <section id="splash">
+    <div id="logo">
+      <div id="leftBackground"></div>
+      <div id="rightBackground"></div>
+      <img src="DH_circle.svg" alt="Digital Harbor Foundation logo">
+    </div>
+    <img src="harborsplash.jpg">
+    <nav>
+      <ul>
+        <a href="#contact" id="contactLink" class="link active"><li>Contact</li></a>
+        <a href="#advisors" id="advisorsLink" class="link"><li>Advisors</li></a>
+        <a href="#trustees" id="trusteesLink" class="link"><li>Trustees</li></a>
+        <a href="#programs" id="programsLink" class="link"><li>Programs</li></a>
+        <a href="#mission" id="missionLink" class="link"><li>Mission</li></a>
+      </ul>
+    </nav>
+  </section>
+  <section id="fixed">
+    <div id="backgroundHarbor"></div>
+    <div id="border"></div>
+    <nav>
+      <ul>
+        <a href="#contact" id="contactLink" class="link active"><li>Contact</li></a>
+        <a href="#advisors" id="advisorsLink" class="link"><li>Advisors</li></a>
+        <a href="#trustees" id="trusteesLink" class="link"><li>Trustees</li></a>
+        <a href="#programs" id="programsLink" class="link"><li>Programs</li></a>
+        <a href="#mission" id="missionLink" class="link"><li>Mission</li></a>
+      </ul>
+    </nav>
+    <header>
+      <img src="smallDHFLogo.svg" alt="Digital Harbor Foundation" class="smallLogo">
+      <p class="motto">
+        <span class="motto1">innovation</span>
+        <span class="motto2">tech</span>
+        <span class="motto3">entreprenuership</span>
+      </p>
+      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+        <input type="hidden" name="cmd" value="_donations">
+        <input type="hidden" name="business" value="rachelcharlesworth@digitalharborfoundation.org">
+        <input type="hidden" name="lc" value="US">
+        <input type="hidden" name="item_name" value="Digital Harbor Foundation">
+        <input type="hidden" name="no_note" value="0">
+        <input type="hidden" name="currency_code" value="USD">
+        <input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">
+        <button type="submit" id="donateButton">Donate</button>
+      </form>
+    </header>
+  </section>
+  <section id="contact" class="content">
+    <h2>Contact Us</h2>
+    <p>Address:
+      <br/><a href="http://maps.google.com/maps?q=q=1414+Key+Highway,+Baltimore,+MD+21230">1414 Key Highway, Suite 100,
+      <br/>Baltimore, MD 21230</a>
+    </p>
+    <p>Tel:
+      <br/><a href="tel:1-410-403-0553">1-410-403-0553</a>
+    </p>
+    <p>Facebook:
+      <br/><a href="http://www.facebook.com/DigitalHarbor" target="_blank">Digital Harbor</a>
+    </p>
+    <p>Twitter:
+      <br/><a href="https://twitter.com/#!/DHFBaltimore" target="_blank">@DHFBaltimore</a>
+    </p>
+    <p>Join our Meetup Calendar at:
+      <br/><a href="http://www.edtechlink.org" target="_blank">EdTechLink.org</a>
+    </p>
+    <article class="profile">
+      <img src="andrewCoy.jpg" alt="Andrew Coy"/>
+      Andrew Coy
+      <br/>Co Executive Director
+      <br/><a href="mailto:andrew@digitalharborfoundation.org">andrew@digitalharborfoundation.org</a>
+      <br/>twitter: <a href="https://twitter.com/#!/andrewcoy" target="_blank">@andrewcoy</a>
+    </article>
+    <article class="profile">
+      <img src="shellyBlakeplock.jpg" alt="Shelly Blake-Plock"/>
+      Shelly Blake-Plock
+      <br/>Co Executive Director
+      <br/><a href="mailto:shelly@digitalharborfoundation.org">shelly@digitalharborfoundation.org</a>
+      <br/>twitter: <a href="https://twitter.com/#!/blakeplock" target="_blank">@blakeplock</a>
+    </article>
+  </section>
+  <section id="advisors" class="content">
+    <h2>Board of Advisors</h2>
+    <h3>Our Advisory Board is comprised of nationally recognized leaders in education, social technology, and the non-profit world.</h3>
+    <ul class="profiles">
+      <li>
+        <img src="alecCouros.jpg" alt="Alec Couros">
+        <h4>Alec Couros</h4>
+        <br/>professor of edtech and media, University of Regina
+      </li>
+      <li>
+        <img src="willRichardson.jpg" alt="Will Richardson">
+        <h4>Will Richardson</h4>
+        <br/>teacher, author and speaker, CLO of the PLP Network
+      </li>
+      <li>
+        <img src="rodneyFoxworth.jpg" alt="Rodney Foxworth">
+        <h4>Rodney Foxworth</h4>
+        <br/>writer and nonprofit consulant, co founder of SquashWise
+      </li>
+      <li>
+        <img src="susanMalone.jpg" alt="Susan Malone">
+        <h4>Susan Malone</h4>
+        <br/>executive director of WideAngle Youth Media
+      </li>
+      <li>
+        <img src="stevenAnderson.jpg" alt="Steven W. Anderson">
+        <h4>Steven W. Anderson</h4>
+        <br/>educational technologist, co founder of #edchat
+      </li>
+      <li>
+        <img src="christineJohnson.jpg" alt="Christine Johnson">
+        <h4>Christine Johnson</h4>
+        <br/>founder and chief executive strategist of DiversiTech
+      </li>
+      <li>
+        <img src="tomMurdock.jpg" alt="Tom Murdock">
+        <h4>Tom Murdock</h4>
+        <br/>teacher and chief architect at Moodlerooms
+      </li>
+      <li>
+        <img src="deanGroom.jpg" alt="Dean Groom">
+        <h4>Dean Groom</h4>
+        <br/>professor Macquarie Univ, co founder of Massively Minecraft
+      </li>
+      <li>
+        <img src="chrisLehmann.jpg" alt="Chris Lehmann">
+        <h4>Chris Lehmann</h4>
+        <br/>founding principal of Science Leadership Academy in Philadelphia
+      </li>
+      <li>
+        <img src="christopherSessums.jpg" alt="Christopher Sessums">
+        <h4>Christopher Sessums</h4>
+        <br/>chief learning officer of xlm-design
+      </li>
+      <li>
+        <img src="maryBethHertz.jpg" alt="Mary Beth Hertz">
+        <h4>Mary Beth Hertz</h4>
+        <br/>teacher and co founder of the EdCamp Foundation
+      </li>
+    </ul>
+  </section>
+  <section id="trustees" class="content">
+    <h2>Board of Trustees</h2>
+    <h3>Our Board of Trustees is comprised of leaders and entrepreneurs from successful companies in the Greater Baltimore Area as well as leaders in education and educational policy.</h3>
+    <ul class="profiles">
+      <li>
+        <img src="seanLane.jpg" alt="Sean Lane">
+        <p>Sean Lane is a unique blend of leader, inventor, strategist and philanthropist. He founded the Digital Harbor Foundation in 2011 to provide educational and professional opportunities for the next generation of great Baltimore technology talent to help our community become a tech destination city.</p>
+      </li>
+      <li>
+        <img src="rachelCharlesworth.jpg" alt="Rachel Charlesworth">
+        <p>Rachel Charlesworth is the former Executive Director of the Digital Harbor Foundation. Rachel brought with her numerous years of fundraising and special events experience and assists with the development of the organization’s programs. In addition to her work at the Digital Harbor Foundation, she actively fundraises for the Reflex Sympathetic Dystrophy Syndrome Association (RSDSA).</p>
+      </li>
+      <li>
+        <img src="craigCummings.jpg" alt="Craig Cummings">
+        <p>Craig Cummings has over 20 years of leadership experience in the U.S. military, Intelligence Community and private sector. As a distinguished graduate of West Point and of Columbia University's GSAS where he earned his M.A., M.Phil, and Ph.D. in Econometrics and Political Science, Craig appreciates the value of an advanced education and is dedicated to the Digital Harbor Foundation's mission.</p>
+      </li>
+      <li>
+        <img src="guyFilippelli.jpg" alt="Guy Filippelli">
+        <p>Guy Filippelli is a Managing Partner at Oxpoint Holdings and CEO of Berico Technologies, a firm that specializes in solving "hard-problem" technical challenges for the military, intelligence, and homeland defense sectors. Guy served nine years as an Army officer, with assignments in Europe, Korea, and Afghanistan, and was awarded the Bronze Star for his service.</p>
+      </li>
+      <li>
+        <img src="chrisHoyt.jpg" alt="Chris Hoyt">
+        <p>Chris Hoyt is an experienced professional in the field of finance and corporate development for the private business sector. He joined the Digital Harbor Foundation Board of Trustees with over 4 years of experience as a Board Member for Virginians for Sensible Energy Policies from 2006 to 2010.</p>
+      </li>
+      <li>
+        <img src="davidStone.jpg" alt="David Stone">
+        <p>David Stone has more than 20 years of experience in the field of special education. He is the Director of Operations for Special Education at the Kennedy Krieger Institute. He sits on the Maryland Association of Boards of Education, the Steering Committee of the Council of Urban Boards of Education, and the Maryland Association of Nonpublic Special Education Facilities.</p>
+      </li>
+    </ul>
+  </section>
+  <section id="programs" class="content">
+    <h2>Programs for Teachers, Students, and Communities</h2>
+    <p>DHF's EdTech Link Fellowships support Baltimore City Public Schools teachers in becoming digital age change-agents both in their schools and in their communities. DHF is the non-profit hub of a conversation surrounding the growth of Baltimore as a destination for teachers and entrepreneurs pushing the envelope of educational technology and we are fueling the local tech economy through collaboration, advocacy, research, publication, networking, and strategic partnerships.</p>
+    <p><strong>EdTech Link is a DHF program dedicated to supporting students, teachers, and communities through the development of local non-profit tech centers providing training in digital literacy and tech workforce development as well as providing K-12 maker space.</strong></p>
+    <p>
+      <img src="jeanWithCheck.jpg" alt="Student displaying check from web work" style="height:9em;margin-right:4em">
+      GET PAID TO THINK
+      <br/>Get paid for learning web design.
+      <br/>
+      <br/>LEARN HOW TO LEARN 
+      <br/>Innovate and make new things.
+      <br/>
+      <br/>LEARN HOW TO LOVE LEARNING
+      <br/>Become mentors to your community.</p>
+    <p>DHF supports students in a variety of ways including through Webslam -- where student teams design and build new websites for nonprofits and local businesses and top teams earn internships with local tech companies.</p>
+    <p>Students in DHF's EdTech Link program work as reverse mentors throughout Baltimore -- our students have even mentored Dr. Andres Alonso, CEO of Baltimore City Public Schools!</p>
+  </section>
+  <section id="mission" class="content">
+    <h2>Our vision</h2>
+    <p><strong>We are a Baltimore-based nonprofit working to foster a culture of innovation, tech advancement, and entrepreneurship through local and global education initiatives.</strong>By providing support, services, and mentoring for K-12 students and recent college graduates in the field of technology, DHF strengthens the innovation economy of the Greater Baltimore Area while effecting change in the global conversation about education in the digital age.</p>
+    <p class="miniGallery">
+      <img src="reverseMentoring.jpg" alt="Reverse Mentoring of Teachers by Students"/>
+      <img src="dhStudent.jpg"  alt="High School Student"/>
+    </p>
+    <h2>Our goals</h2>
+    <p><strong>To end digital inequity among school children</strong> by giving them tech age skills and workforce capacity that will help them to see themselves as engaged citizens within a tech culture;</p>
+    <p><strong>To empower teachers to be leaders</strong> in education relevant to the growth of digital age industry, economy, and civic culture; to help develop a culture of learning that will build sustainable links between K-12 education, college and workforce STE(A)M readiness, and the tech community;</p>
+    <p><strong>To foster a community of innovation and entrepreneurship;</strong> to strengthen the urban technology economy; to be a model of collaboration and innovation between learners, teachers, and technologists.</p>
+  </section>
+  <footer>
+    <img src="EdTechLinkAnchor.svg">
+  </footer>
+</body>
+</html>
