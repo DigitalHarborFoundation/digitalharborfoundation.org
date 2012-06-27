@@ -26,19 +26,19 @@
         function(i, v) {
           $("#" + v + " *:first-child").waypoint(function() {
             $("#fixed #" + v + "Link").click();
-          }, {offset: "50%"});
+          }, {offset: "50%", continuous:false});
           $("#" + v).waypoint(function() {
             $("#fixed #" + v + "Link").click();
-          }, {offset: "-25%"});
+          }, {offset: "-25%", continuous:false});
         });
-      var hash = window.location.hash;
-      if (hash) {
-        $("#fixed").find(".link")
-            .removeClass("active")
-          .end()
-          .find("#" + hash + "Link").addClass("active");
-        $("body").removeClass("mainMenu");
-      }
+    var hash = window.location.hash;
+    if (hash) {
+      $("#fixed").find(".link")
+          .removeClass("active")
+        .end()
+        .find("#" + hash + "Link").addClass("active");
+      $("body").removeClass("mainMenu");
+    }
   });
   </script>
   <style>
@@ -153,9 +153,9 @@
       top: 50%;
       display: inline-block;
       margin-left: 2em;
-      transform: translateX(-50%) rotate(-90deg) translateY(50%);
-      -webkit-transform: translateX(-50%) rotate(-90deg) translateY(50%);
-      -moz-transform: translateX(-50%) rotate(-90deg) translateY(50%);
+      transform: translateX(-50%) rotate(-90deg) translateY(50%) translateX(.5em);
+      -webkit-transform: translateX(-50%) rotate(-90deg) translateY(50%) translateX(.5em);
+      -moz-transform: translateX(-50%) rotate(-90deg) translateY(50%) translateX(.5em);
       transform-origin:50% 50% 0;
       -webkit-transform-origin:50% 50% 0;
       -moz-transform-origin:50% 50% 0;
@@ -163,10 +163,10 @@
       font-size: 20pt;
       white-space: nowrap;
     }
+    #fixed nav {
+      margin-top: 1.5em;
+    }
     #splash nav {
-      transform: translateX(-50%) rotate(-90deg) translateY(50%);
-      -webkit-transform: translateX(-50%) rotate(-90deg) translateY(50%);
-      -moz-transform: translateX(-50%) rotate(-90deg) translateY(50%);
       position:absolute;
       top: 50%;
       left: 70%;
@@ -369,23 +369,33 @@
       bottom: 0;
       width: 6em;
     }
-    /* below 800 height, reduce size of menu text for fixed */
-    @media screen and (max-height:800px) {
-      #fixed nav {
+    /* below 810 height, reduce size of menu text for fixed */
+    @media screen and (max-height:810px) {
+      nav {
         font-size: 16pt;
-        margin-left: 2.5em;
+        margin-left: 2.75em;
       }
     }
-    /* below 940 height, reduce size of menu text for splash */
-    @media screen and (max-height:940px) {
-      #splash nav {
-        font-size: 16pt;
+    /* below 590 height, reduce spacing of menu text for fixed */
+    @media screen and (max-height:590px) {
+      nav {
+        font-size: 14pt;
+        margin-left: 3.25em;
+      }
+      nav ul li {
+        padding-right: .1em;
+        padding-left: .1em;
       }
     }
-    /* and again for even tinier screens */
-    @media screen and (max-height:940px) {
-      #splash nav {
-        font-size: 16pt;
+    /* below 500 height, reduce spacing of menu text for fixed */
+    @media screen and (max-height:500px) {
+      nav {
+        font-size: 12pt;
+        margin-left: 3.75em;
+      }
+      nav ul li {
+        padding-right: .1em;
+        padding-left: .1em;
       }
     }
     /* below 945 width, don't display motto */
@@ -410,7 +420,12 @@
         margin-left: 4.5em;
       }
     }
-    
+    /* below 500 width, left align edtech link motto */
+    @media screen and (max-width:500px) {
+      #splash #edtechLink #edtechLinkMotto {
+        text-align:left;
+      }
+    }
     body.mainMenu {
       overflow: hidden;
     }
