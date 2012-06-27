@@ -8,6 +8,14 @@
   <script src="waypoints.min.js"></script>
   <script>
   $(function() {
+    $("#splash").on("click",".link", function(event) {
+      var id = $(this).attr("id");
+      $("#fixed").find(".link")
+          .removeClass("active")
+        .end()
+        .find("#" + id).addClass("active");
+      $("body").removeClass("mainMenu");
+    });
     $("#fixed").on("click",".link", function(event) {
       $(this).closest("#fixed").find(".link")
           .removeClass("active")
@@ -16,13 +24,21 @@
     });
     $.each(["contact", "advisors", "trustees", "programs", "mission"],
         function(i, v) {
+          $("#" + v + " *:first-child").waypoint(function() {
+            $("#fixed #" + v + "Link").click();
+          }, {offset: "50%"});
           $("#" + v).waypoint(function() {
-            $("#" + v + "Link").click();
-          }, {offset: 'bottom-in-view'});
-          $("#" + v).waypoint(function() {
-            $("#" + v + "Link").click();
-          }, {offset: 0});
+            $("#fixed #" + v + "Link").click();
+          }, {offset: "-25%"});
         });
+      var hash = window.location.hash;
+      if (hash) {
+        $("#fixed").find(".link")
+            .removeClass("active")
+          .end()
+          .find("#" + hash + "Link").addClass("active");
+        $("body").removeClass("mainMenu");
+      }
   });
   </script>
   <style>
@@ -45,58 +61,94 @@
       z-index: 2;
       width: 100%;
       height: 100%;
+      background-color: #FFFFFF;
+      overflow:hidden;
     }
-    #splash img {
+    #splash #leftBackground {
       position:absolute;
-      left: 80%;
+      left: 0;
       top: 0;
       height: 100%;
+      width: 35.1%;
       display: inline-block;
+      background-color: #031024;
     }
-    #splash #logo {
-      position: relative;
+    #splash #rightBackground {
+      position:absolute;
+      left: 35%;
+      top: 0;
+      height: 100%;
+      width: 35.1%;
       display: inline-block;
+      background-color: #4ca6c7;
+      background-image: url("circuits.gif");
+      background-size: 350px 350px;
+      background-position: -10px -40px;
     }
-    #logo #leftBackground {
+    #splash #logoVertContainer {
+      position:absolute;
+      left:35%;
+      top:50%;
       height: 100%;
-      width: 50%;
-      background-color: #000C36;
-      float:left;
-      position: absolute;
-      left:0;
-      top:0;
+      width:70%;
     }
-    #logo #rightBackground {
-      width: 50%;
+    #splash #logoVertContainer img {
       height: 100%;
-      background-color: #231F20;
-      float:left;
-      position: absolute;
-      left:50%;
-      top:0;
+      width: auto;
+      transform: translateX(-50%) translateY(-50%);
+      -webkit-transform: translateX(-50%) translateY(-50%);
+      -moz-transform: translateX(-50%) translateY(-50%);
     }
-    #logo #gradient {
-      float:left;
-      position: absolute;
-      left:10%;
-      top:10%;
-      height: 80%;
+    /* when the aspect ratio is more than 1.543, base size on height instead */
+    @media screen and (max-aspect-ratio: 1011/659) {
+      #splash #logoVertContainer img {
+        width: 100%;
+        height: auto;
+        margin-top: -50%;
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+      }
     }
-    #logo img {
-      float:left;
-      position: absolute;
-      left:10%;
-      top:10%;
-      height: 80%;
+    #splash #frostedHarbor {
+      height: 100%;
+      width: 30%;
+      background-image: url("harborFull.jpg");
+      position:absolute;
+      top: 0;
+      right: 0;
+      background-position: right bottom;
+      background-size: auto 100%;
+      background-repeat: no-repeat;
+      opacity: 0.15;
+    }
+    #splash #edtechLink {
+      position:absolute;
+      right: 0;
+      bottom: 0;
+      width: 30%;
+      text-align: right;
+    }
+    #splash #edtechLink #edtechLinkMotto {
+      margin-left: 1em;
+      font-size: 24pt;
+      color: #3C708A;
+      margin-right: .5em;
+      display: block;
+    }
+    #splash #edtechLink img {
+      display: block;
+      margin-left: auto;
+      height: 8em;
+      opacity: 0.7;
     }
     #fixed {
       position: fixed;
       top:0;
       left:0;
-      z-index: 1;
       width: 100%;
     }
-    #fixed nav {
+    nav {
       position: fixed;
       top: 50%;
       display: inline-block;
@@ -111,15 +163,24 @@
       font-size: 20pt;
       white-space: nowrap;
     }
-    #fixed nav ul {
+    #splash nav {
+      transform: translateX(-50%) rotate(-90deg) translateY(50%);
+      -webkit-transform: translateX(-50%) rotate(-90deg) translateY(50%);
+      -moz-transform: translateX(-50%) rotate(-90deg) translateY(50%);
+      position:absolute;
+      top: 50%;
+      left: 70%;
+      margin-left:0;
+    }
+    nav ul{
       list-style: none;
       font-weight: 400;
     }
-    #fixed nav ul li {
+    nav ul li{
       display: inline;
       padding: .5em;
     }
-    #fixed nav ul a {
+    nav ul a {
       color: #B5B5B5;
       transition-property: color;
       transition-duration: .5s;
@@ -128,7 +189,7 @@
       -moz-transition-property: color;
       -moz-transition-duration: .5s;
     }
-    #fixed nav ul a:hover {
+    nav ul a:hover {
       color: #666666;
       transition-property: color;
       transition-duration: .5s;
@@ -137,7 +198,7 @@
       -moz-transition-property: color;
       -moz-transition-duration: .5s;
     }
-    #fixed nav ul a.active {
+    nav ul a.active {
       color: #3D718B;
       transition-property: color;
       transition-duration: .5s;
@@ -302,20 +363,29 @@
     .content a:hover {
       text-shadow: 0.1em 0.1em 0.2em #3C708A;
     }
-    #splash {
-      display:none;
-    }
     footer img {
       position: fixed;
       right: 0;
       bottom: 0;
       width: 6em;
     }
-    /* below 800 height, reduce size of menu text*/
+    /* below 800 height, reduce size of menu text for fixed */
     @media screen and (max-height:800px) {
       #fixed nav {
         font-size: 16pt;
         margin-left: 2.5em;
+      }
+    }
+    /* below 940 height, reduce size of menu text for splash */
+    @media screen and (max-height:940px) {
+      #splash nav {
+        font-size: 16pt;
+      }
+    }
+    /* and again for even tinier screens */
+    @media screen and (max-height:940px) {
+      #splash nav {
+        font-size: 16pt;
       }
     }
     /* below 945 width, don't display motto */
@@ -341,9 +411,20 @@
       }
     }
     
+    body.mainMenu {
+      overflow: hidden;
+    }
+    body #splash {
+      display: none;
+    }
+    body.mainMenu #splash {
+      display: block;
+    }
+    
+    
   </style>
 </head>
-<body>
+<body class="mainMenu">
   <!--[if IE]>
       <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
       <script type="text/javascript" src="chromeframe.js" charset="utf-8"></script>
@@ -352,15 +433,19 @@
       </script>
   <![endif]-->
   <section id="splash">
-    <div id="logo">
-      <div id="leftBackground"></div>
-      <div id="rightBackground"></div>
-      <img src="DH_circle.svg" alt="Digital Harbor Foundation logo">
+    <div id="leftBackground"></div>
+    <div id="rightBackground"></div>
+    <div id="logoVertContainer">
+      <img src="dhf_logo.png"/>
     </div>
-    <img src="harborsplash.jpg">
+    <div id="frostedHarbor"></div>
+    <div id="edtechLink">
+        <span id="edtechLinkMotto">We link learners to doers</span>
+        <img src="EdTechLinkAnchor.svg">
+    </div>
     <nav>
       <ul>
-        <a href="#contact" id="contactLink" class="link active"><li>Contact</li></a>
+        <a href="#contact" id="contactLink" class="link"><li>Contact</li></a>
         <a href="#advisors" id="advisorsLink" class="link"><li>Advisors</li></a>
         <a href="#trustees" id="trusteesLink" class="link"><li>Trustees</li></a>
         <a href="#programs" id="programsLink" class="link"><li>Programs</li></a>
@@ -374,7 +459,7 @@
     <div id="circuits"></div>
     <nav>
       <ul>
-        <a href="#contact" id="contactLink" class="link active"><li>Contact</li></a>
+        <a href="#contact" id="contactLink" class="link"><li>Contact</li></a>
         <a href="#advisors" id="advisorsLink" class="link"><li>Advisors</li></a>
         <a href="#trustees" id="trusteesLink" class="link"><li>Trustees</li></a>
         <a href="#programs" id="programsLink" class="link"><li>Programs</li></a>
