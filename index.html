@@ -420,6 +420,17 @@
         padding-left: .1em;
       }
     }
+    /* again for below 410 height, reduce spacing of menu text for fixed */
+    @media screen and (max-height:410px) {
+      nav {
+        font-size: 9pt;
+        margin-left: 4.5em;
+      }
+      nav ul li {
+        padding-right: .1em;
+        padding-left: .1em;
+      }
+    }
     /* below 945 width, don't display motto */
     @media screen and (max-width:945px) {
       .motto {
@@ -442,12 +453,8 @@
         margin-left: 4.5em;
       }
     }
-    /* below 500 width, left align edtech link motto */
-    /* also remove image and circuits, left align top logo */
+    /* below 500 width, remove image and circuits, left align top logo, shrink anchor, and lower height of banner */
     @media screen and (max-width:500px) {
-      #splash #edtechLink #edtechLinkMotto {
-        text-align:left;
-      }
       #fixed #backgroundHarbor,
       #fixed #circuits {
         display: none;
@@ -460,9 +467,29 @@
       }
       #fixed header .smallLogo {
         margin-left: 2.5em;
+        height: 1.75em;
+        margin-top: .75em;
       }
       .content {
         padding-left: 5em;
+      }
+      #fixed #donateButton {
+        font-size: 10pt;
+      }
+      #fixed header {
+        height: 3.25em;
+      }
+      footer img {
+        width: 4em;
+      }
+    }
+    /* below 820 width, shrink motto and anchor*/
+    @media screen and (max-width:820px) {
+      #splash #edtechLink #edtechLinkMotto {
+        font-size: 12pt;
+      }
+      #splash #edtechLink img {
+        height: 5em;
       }
     }
     
