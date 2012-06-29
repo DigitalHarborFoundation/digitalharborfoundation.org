@@ -297,6 +297,9 @@
       font-family: "Arial", sans-serif;
       text-transform: uppercase;
     }
+    #fixed #donateButton:hover {
+      text-shadow: 0.1em 0.1em 0.2em #3C708A;
+    }
     .content {
       padding-left: 40%;
       padding-bottom: 100%;
@@ -386,6 +389,7 @@
       right: 0;
       bottom: 0;
       width: 6em;
+      opacity: 0.6;
     }
     /* below 810 height, reduce size of menu text for fixed */
     @media screen and (max-height:810px) {
@@ -439,11 +443,29 @@
       }
     }
     /* below 500 width, left align edtech link motto */
+    /* also remove image and circuits, left align top logo */
     @media screen and (max-width:500px) {
       #splash #edtechLink #edtechLinkMotto {
         text-align:left;
       }
+      #fixed #backgroundHarbor,
+      #fixed #circuits {
+        display: none;
+      }
+      #border {
+        width: 2.5em;
+      }
+      #fixed nav {
+        margin-left:.5em;
+      }
+      #fixed header .smallLogo {
+        margin-left: 2.5em;
+      }
+      .content {
+        padding-left: 5em;
+      }
     }
+    
     body.mainMenu {
       overflow: hidden;
       height: 100%;
@@ -527,8 +549,8 @@
       <img src="dhStudent.jpg"  alt="High School Student"/>
     </p>
     <h2>Our goals</h2>
-    <p><strong>To end digital inequity among school children</strong> by giving them tech age skills and workforce capacity that will help them to see themselves as engaged citizens within a tech culture;</p>
-    <p><strong>To empower teachers to be leaders</strong> in education relevant to the growth of digital age industry, economy, and civic culture; to help develop a culture of learning that will build sustainable links between K-12 education, college and workforce STE(A)M readiness, and the tech community;</p>
+    <p><strong>To spur innovation and end digital inequity among school children</strong> by giving them tech age skills and workforce capacity that will help them to see themselves as engaged citizens within a tech culture;</p>
+    <p><strong>To advance technology by empowering teachers</strong> to be leaders in education relevant to the growth of digital age industry, economy, and civic culture; to help develop a culture of learning that will build sustainable links between K-12 education, college and workforce STE(A)M readiness, and the tech community;</p>
     <p><strong>To foster a community of innovation and entrepreneurship;</strong> to strengthen the urban technology economy; to be a model of collaboration and innovation between learners, teachers, and technologists.</p>
   </section>
   <section id="programs" class="content">
