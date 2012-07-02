@@ -44,6 +44,8 @@
     }
     $("#logoVertContainer img").click(function() {
       window.location.hash = "#mission";
+      //nasty, dirty, ie 9 workaround!
+      window.onhashchange({newURL: "#mission"});
     });
     window.onhashchange = function(event) {
       if (event.newURL.indexOf("#") == -1) {
