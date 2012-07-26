@@ -11,50 +11,71 @@
   <script src="waypoints.min.js"></script>
   <script>
   $(function() {
-    $("#splash").on("click",".link", function(event) {
-      var id = $(this).attr("id");
+    var win = $(window);
+    var fontResizer = function($el, scale) {
+      //simplified version of fittext.js
+      var resize = function() {
+        $el.css('font-size', win.width()/scale);
+      };
+      resize();
+      win.on('resize',resize);
+    }
+    fontResizer($("#edpainModal"), 60.0)
+    window.onhashchange = function(event) {
+      $("body").toggleClass("mainMenu", event.newURL.indexOf("#") == -1);
+    };
+    var gotoSection = function(section, skipHashChange) {
+      console.log("going to section:" + section);
+      if (!skipHashChange) {
+        window.location.hash = "#" + section;
+        //nasty, dirty, ie 9 workaround!
+        window.onhashchange({newURL: "#" + section});
+      }
       $("#fixed").find(".link")
           .removeClass("active")
         .end()
-        .find("#" + id).addClass("active");
+        .find("#" + section + "Link").addClass("active");
       $("body").removeClass("mainMenu");
+    };
+    // if currenthas a hash activate it now!
+    if (window.location.hash) {
+      gotoSection(window.location.hash.substr(1));
+    }
+    $("#logoVertContainer img").click(function(e) {
+      $("#edpainModal").fadeIn().find("a.continue").on("click.edpain", function() {
+        gotoSection("mission");
+        $("#edpainModal").fadeOut();
+        $(this).off("click.edpain");
+      });
+      e.preventDefault();
+    });
+    $("#splash").on("click",".link", function(e) {
+      var section = $(this).attr("href").substr(1);
+      $("#edpainModal").fadeIn().find("a.continue").on("click.edpain", function() {
+        gotoSection(section);
+        $("#edpainModal").fadeOut();
+        $(this).off("click.edpain");
+      });
+      e.preventDefault();
     });
     $("#fixed").on("click",".link", function(event) {
-      $(this).closest("#fixed").find(".link")
-          .removeClass("active")
-        .end().end()
-        .addClass("active");
+      gotoSection($(this).attr("href").substr(1));
     });
     $.each(["contact", "advisors", "trustees", "programs", "mission"],
         function(i, v) {
-          $("#" + v + " *:first-child").waypoint(function() {
-            $("#fixed #" + v + "Link").click();
-          }, {offset: "50%", continuous:false});
-          $("#" + v).waypoint(function() {
-            $("#fixed #" + v + "Link").click();
-          }, {offset: "-25%", continuous:false});
+          $("#" + v + " *:first-child").waypoint(function(e,dir) {
+            if (dir == "down" && !$("body").hasClass("mainMenu")) {
+              console.log("hit top waypoint of " + v);
+              gotoSection(v, true);
+            }
+          }, {offset: "50%", onlyOnScroll: true, continuous: false});
+          $("#" + v).waypoint(function(e, dir) {
+            if (dir == "up" && !$("body").hasClass("mainMenu")) {
+              console.log("hit bottom waypoint of " + v);
+              gotoSection(v, true);
+            }
+          }, {offset: 'bottom-in-view', onlyOnScroll: true, continuous: false});
         });
-    var hash = window.location.hash;
-    if (hash) {
-      $("#fixed").find(".link")
-          .removeClass("active")
-        .end()
-        .find("#" + hash + "Link").addClass("active");
-      $("body").removeClass("mainMenu");
-    }
-    $("#logoVertContainer img").click(function() {
-      window.location.hash = "#mission";
-      //nasty, dirty, ie 9 workaround!
-      window.onhashchange({newURL: "#mission"});
-    });
-    window.onhashchange = function(event) {
-      if (event.newURL.indexOf("#") == -1) {
-        $("body").addClass("mainMenu");
-      }
-      else {
-        $("body").removeClass("mainMenu");
-      }
-    };
   });
   </script>
   <style>
@@ -69,6 +90,65 @@
     a {
       text-decoration: none;
       color: inherit;
+    }
+    #edpainModal {
+      width: 100%;
+      height: 100%;
+      position:fixed;
+      top:0;
+      left:0;
+      background-color: white;
+      z-index: 3;
+      display: none;
+      text-align:center;
+      font-size: 16pt;
+    }
+    #edpainModal header {
+      margin: 2em auto 0 auto;
+    }
+    #edpainModal > p {
+      font-size: 200%;
+      margin: 1em 3.5em 1em 3.5em;
+      text-align: left;
+    }
+    #edpainModal a.edpain {
+      display: block;
+      text-align: center;
+      width:12em;
+      font-size:inherit;
+      font-family:"GeosansLight";
+      color:#fff;
+      background-color:#FEBD25;
+      border:0;
+      border-radius:3px;
+      box-shadow:2px 2px 2px #aaa;
+      padding:.2em 0;
+      margin: 0 auto 1em auto;
+      cursor:pointer;
+      opacity:.9;
+    }
+    #edpainModal a.edpain:hover {
+      opacity:1.0;
+    }
+    #edpainModal a.edpain:active {
+      color:#ddd;box-shadow:2px 2px 2px #aaa inset;position:relative;left:2px;top:2px;
+    }
+    #edpainModal a.continue {
+      display: block;
+      text-align: center;
+      cursor: pointer;
+    }
+    #edpainModal a.continue:hover {
+      text-decoration: underline;
+    }
+    #edpainModal header h1{font-size:1300%;font-family:"helvetica";font-weight:800;color:transparent;text-shadow:.01em .01em .01em #27a9e0,.005em .005em .005em #14678a,.01em .01em 0 #27a9e0}
+    #edpainModal header p{font-size:150%;margin-top:-1.1em;color:#27a9e0;margin-left:17em;}
+    #edpainModal  header p a{color:#febd25}
+    #edpainModal header h2 {
+      text-align: left;
+      font-size: 300%;
+      color: #00C12A;
+      margin-left: 2em;
     }
     #splash {
       position: fixed;
@@ -558,6 +638,17 @@
         <a href="#mission" id="missionLink" class="link"><li>Mission</li></a>
       </ul>
     </nav>
+  </section>
+  <section id="edpainModal">
+    <header>
+      <h2>Introducing</h2>
+      <h1>#edpain</h1>
+      <p>identifying the pain points of education</p>
+    </header>
+    <p>#edpain is an open cc 3.0 platform for teachers, students, admins, policy makers, parents, and technologists to constructively identify pain points in education.</p>
+    <p>
+    <a class="edpain" href="http://edpain.digitalharborfoundation.org">Click here to go to #edpain</a></p>
+    <p><a class="continue">...or continue on to Digital Harbor Foundation site.</a></p>
   </section>
   <section id="fixed">
     <div id="backgroundHarbor"></div>
